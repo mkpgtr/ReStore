@@ -19,6 +19,7 @@ internal class Program
         });
 
 
+        builder.Services.AddCors();
         var app = builder.Build();
 
 
@@ -29,7 +30,9 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        app.UseCors(opt=>{
+            opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+        });
         app.UseAuthorization();
         app.MapControllers();
         var scope = app.Services.CreateScope();
